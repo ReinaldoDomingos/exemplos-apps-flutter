@@ -32,15 +32,21 @@ class _HomeState extends State<Home> {
   final euroController = TextEditingController();
 
   void realChange(String text) {
-    print(text);
+    double real = double.parse(text);
+    dolarController.text = (real / dolar).toStringAsFixed(2);
+    euroController.text = (real / euro).toStringAsFixed(2);
   }
 
   void dolarChange(String text) {
-    print(text);
+    double dolar = double.parse(text);
+    realController.text = (dolar * this.dolar).toStringAsFixed(2);
+    euroController.text = (dolar * this.dolar / euro).toStringAsFixed(2);
   }
 
   void euroChange(String text) {
-    print(text);
+    double euro = double.parse(text);
+    realController.text = (euro * this.euro).toStringAsFixed(2);
+    dolarController.text = (euro * this.euro / dolar).toStringAsFixed(2);
   }
 
   @override
@@ -77,7 +83,7 @@ class _HomeState extends State<Home> {
                         textAlign: TextAlign.center));
               } else {
                 dolar = snapshot.data["currencies"]["USD"]["buy"];
-                dolar = snapshot.data["currencies"]["EUR"]["buy"];
+                euro = snapshot.data["currencies"]["EUR"]["buy"];
 
                 return SingleChildScrollView(
                   padding: EdgeInsets.all(10.0),
